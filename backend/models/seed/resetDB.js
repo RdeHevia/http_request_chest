@@ -55,7 +55,7 @@ mongoose.connect(config.MONGODB_URI, {
     .catch((err) => console.log(err));
 
   await initializeBins();
-  await initializeRequests();
+  // await initializeRequests();
   printFirstBinStuff ();
 }).catch(error => {
   console.log(`error connection to MongoDB: ${error.message}`);
