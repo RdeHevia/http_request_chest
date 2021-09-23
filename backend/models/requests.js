@@ -2,10 +2,15 @@ const mongoose = require('mongoose');
 // const uniqueValidator = require('mongoose-unique-validator');
 
 const requestSchema = new mongoose.Schema({
-  rawRequest: String, //to delete
+  protocol: String,
+  method: String,
+  hostname: String,
+  path: String,
+  ip: String,
   headers: Object,
   body: Object,
 }, {timestamps: true});
+
 
 // requestSchema.plugin(uniqueValidator);
 

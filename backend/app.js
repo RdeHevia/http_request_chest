@@ -2,7 +2,9 @@ const config = require('./utils/config');
 const express = require('express');
 const app = express();
 const cors = require('cors');
-// const router = require('./controllers/router');
+const incomingRequests = require('./controllers/incomingRequests');
+
+
 const mongoose = require('mongoose');
 const morgan = require('morgan');
 require('express-async-errors');
@@ -17,3 +19,12 @@ mongoose.connect(config.MONGODB_URI, {
 }).catch(error => {
   console.log(`error connection to MongoDB: ${error.message}`);
 });
+
+app.use(cors());
+app.use(express.static('build'));
+app.use(express.json());
+app.use(morgan('dev'));
+app.use('/', incomingRequests);
+// app.use('/api', api)
+
+module.exports = app;
