@@ -1,16 +1,20 @@
 const mongoose = require('mongoose');
 const { nanoid } = require('nanoid');
+
+const { requestSchema } = require('./requests');
+
 const generateId = () => {
   return nanoid(6).toLowerCase();
-}
-// const uniqueValidator = require('mongoose-unique-validator');
+};
 
 // create new schema
 const binSchema = new mongoose.Schema({
   _id: {
     type: String,
     default: generateId,
-  }
+  },
+
+  requests: [requestSchema]
 }, { timestamps: true });
 
 binSchema.set('toJSON', {
