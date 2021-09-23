@@ -54,26 +54,10 @@ mongoose.connect(config.MONGODB_URI, {
     .then(() => console.log('collections dropped succesfully'))
     .catch((err) => console.log(err));
 
-  await initializeBins();
+  // await initializeBins();
   // await initializeRequests();
   printFirstBinStuff ();
 }).catch(error => {
   console.log(`error connection to MongoDB: ${error.message}`);
 });
 
-/*
-Bins
-{
-  id (path),
-  requests: [request1, request2....]
-}
-
-each request has the same schema:
-{
-  rawRequest,
-  headers,
-  body,
-  ip,
-  ....
-}
-*/
