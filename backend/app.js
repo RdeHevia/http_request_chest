@@ -3,6 +3,7 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const incomingRequests = require('./controllers/incomingRequests');
+const { api } = require('./controllers/api');
 
 
 const mongoose = require('mongoose');
@@ -19,12 +20,13 @@ mongoose.connect(config.MONGODB_URI, {
 }).catch(error => {
   console.log(`error connection to MongoDB: ${error.message}`);
 });
-
+// PENDING: display main page: GET / -> static buildMainPage
+// PENDING: display bin page: GET /bins/:binId
 app.use(cors());
 app.use(express.static('build'));
 app.use(express.json());
 app.use(morgan('dev'));
+app.use('/api', api);
 app.use('/', incomingRequests);
-// app.use('/api', api)
 
 module.exports = app;
