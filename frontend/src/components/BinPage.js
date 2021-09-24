@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import fetchBin from '../services/fetchBin';
+import { fetchBin } from '../services/fetchBin';
 
 const BinPage = ({ binId }) => {
   const [bin, setBin] = useState({});

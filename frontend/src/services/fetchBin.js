@@ -5,4 +5,9 @@ const fetchBin = async (binId) => {
   return response.json();
 }
 
-export default fetchBin;
+const getIfBinExists = async (binId) => {
+  const response = await fetch(`${baseUrl}/${binId}?check_exists=true`);
+  return response.json();
+}
+
+export {fetchBin, getIfBinExists}
