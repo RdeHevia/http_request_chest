@@ -15,6 +15,7 @@ const BinPage = ({ binId, handleGoToHome }) => {
       setCreationTime(new Date(bin.createdAt).toLocaleString("en-US", dateConfig));
       setLastUpdateTime(new Date(bin.updatedAt).toLocaleString("en-US", dateConfig));
       setRequests(bin.requests);
+      console.log(requests);
     });
   }, []);
   return (
@@ -22,7 +23,7 @@ const BinPage = ({ binId, handleGoToHome }) => {
       <BackHomeButton handleGoToHome={handleGoToHome} />
       <section>
         <p>Your enpoint:</p> 
-        <input type="url" name="" id="" value={`${window.location.hostname}/${binId}`}/>
+        <input type="url" name="" id="" readOnly defaultValue={`${window.location.hostname}/${binId}`}/>
       </section>
       <section>
         <ul>
@@ -35,8 +36,7 @@ const BinPage = ({ binId, handleGoToHome }) => {
 
       </section>
       <ul>
-        {/* {requests.map(request => <li>{JSON.stringify(request)}</li>)} */}
-        {requests.map(request => (<Request request={request} />))}
+        {requests.map(request => (<Request key={request._id} request={request} />))}
       </ul>
     </main>
   )

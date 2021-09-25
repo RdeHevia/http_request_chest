@@ -42,6 +42,7 @@ const App = () => {
 
   const handleGoToHome = event => {
     event.preventDefault();
+    setBinIdFormInput(binId);
     setBinId("");
     window.localStorage.setItem("binId","");
   }
