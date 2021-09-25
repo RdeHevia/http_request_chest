@@ -1,21 +1,42 @@
 import React, { useEffect, useState } from 'react';
 import { fetchBin } from '../services/fetchBin';
+import BackHomeButton from './BackHomeButton';
+import Request from './Request';
+import TimeAgo from 'javascript-time-ago';
+import en from 'javascript-time-ago/locale/en'
 
-const BinPage = ({ binId }) => {
-  const [bin, setBin] = useState({});
-
+const BinPage = ({ binId, handleGoToHome }) => {
+  const [requests, setRequests] = useState([]);
+  const [creationTime, setCreationTime] = useState("");
+  const [lastUpdateTime, setLastUpdateTime] = useState("");
   useEffect(() => {
     fetchBin(binId).then(bin => {
-      setBin(bin)
-      console.log(bin);
+      const dateConfig = {weekday: "long", year:"numeric", month:"long", day:"numeric", hour: "numeric", minute: "numeric"};
+      setCreationTime(new Date(bin.createdAt).toLocaleString("en-US", dateConfig));
+      setLastUpdateTime(new Date(bin.updatedAt).toLocaleString("en-US", dateConfig));
+      setRequests(bin.requests);
     });
   }, []);
   return (
     <main>
-      <p>{binId}</p>
-      <div>{bin.createdAt}</div>
+      <BackHomeButton handleGoToHome={handleGoToHome} />
+      <section>
+        <p>Your enpoint:</p> 
+        <input type="url" name="" id="" value={`${window.location.hostname}/${binId}`}/>
+      </section>
+      <section>
+        <ul>
+          <li>Bin {binId}</li>
+          <li>Bin created on: {creationTime}</li>
+          <li>Last request received on: {lastUpdateTime}</li>
+        </ul>
+      </section>
+      <section>
+
+      </section>
       <ul>
-        {(bin.requests || []).map(request => <li>{JSON.stringify(request.method)}</li>)}
+        {/* {requests.map(request => <li>{JSON.stringify(request)}</li>)} */}
+        {requests.map(request => (<Request request={request} />))}
       </ul>
     </main>
   )

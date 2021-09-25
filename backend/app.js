@@ -29,4 +29,8 @@ app.use(morgan('dev'));
 app.use('/api', api);
 app.use('/', incomingRequests);
 
+app.get("/*", (req, res) => {
+  res.redirect('/');
+});
+
 module.exports = app;

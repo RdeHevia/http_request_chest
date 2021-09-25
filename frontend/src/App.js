@@ -10,73 +10,58 @@ import {
 import BinPage from './components/BinPage';
 const App = () => {
   const [binId, setBinId] = useState(window.localStorage.getItem("binId") || "");
-  // localStorageBinId = window.localStorage.getItem("binId")
+  const [binIdFormInput, setBinIdFormInput] = useState("");
+
   let history = useHistory();
-  // console.log(history);
-  /*
-    - if localStorageBinId
-      - setBinId(localStorageBinId)
-      - history.push(`/bins/${window.localStorage.getItem("binId")}) 
-    - useEffect is triggered if localStorageBinId changes
-  */
+  
   useEffect(() => {
     if (binId) {
       history.push(`/bins/${binId}`);
+    } else {
+      history.push(`/`)
     }
-  }, []);
+  }, [binId, history]);
 
   const handleBinIdChange = event => {
-    setBinId(event.target.value);
+    setBinIdFormInput(event.target.value);
   }
 
-  /*
-    - window.localStorage.setItem("binId",binId);
-    - history.push(`/bins/${window.localStorage.getItem("binId")}) NOT NEEDED
-  */
   const handleGoToBin = async event => {
     event.preventDefault();
-    const binExists = (await getIfBinExists(binId)).exists;
+    const binExists = (await getIfBinExists(binIdFormInput)).exists;
 
     if (binExists) {
-      window.localStorage.setItem("binId",binId);
-      history.push(`/bins/${binId}`);
+      setBinId(binIdFormInput);
+      window.localStorage.setItem("binId",binIdFormInput);
+
     } else {
-      alert(`Bin ${binId} doesn't exists. Please try again or create a new one`);
-      setBinId("");
+      alert(`Bin ${binIdFormInput} doesn't exists. Please try again or create a new one`);
+      setBinIdFormInput("");
     }
-    // check if id exists
-    // yes?
-      // -add id to localSotorage
-      // history.push blabla
-  }
-  /*
-    - setBinId(binId)
-    - window.localStorage.setItem("binId",binId);
-    - history.push(`/bins/${window.localStorage.getItem("binId")}) NOT NEEDED
-  */
-  const handleCreateNewBin = async event => {
-    let binId = (await createNewBin()).binId;
-    setBinId(binId);
-    history.push(`/bins/${binId}`);
   }
 
-// handle go back to Home
-  // clear localSotorage
-  // history.push(/)
+  const handleGoToHome = event => {
+    event.preventDefault();
+    setBinId("");
+    window.localStorage.setItem("binId","");
+  }
+
+  const handleCreateNewBin = async event => {
+    let newBinId = (await createNewBin()).binId;
+  
+    setBinId(newBinId);
+    window.localStorage.setItem("binId",newBinId);
+  }
 
   return (
   <>
-    <header>Request Bin</header>
-      {/* conditional rendering
-      Page
-        - if binIdSubmitted and valid -> show BinPage
-        - if binIdNoSubmitted or not valid -> show Home */}
+    <header><h1>Request Bin</h1></header>
       <Switch>
         <Route path={`/bins/${binId}`}>
-          <BinPage binId={binId} />
+          <BinPage binId={binId} handleGoToHome={handleGoToHome}/>
         </Route>
         <Route path="/">
-          <Home binId={binId} handleBinIdChange={handleBinIdChange} handleGoToBin={handleGoToBin} handleCreateNewBin={handleCreateNewBin} />
+          <Home binId={binIdFormInput} handleBinIdChange={handleBinIdChange} handleGoToBin={handleGoToBin} handleCreateNewBin={handleCreateNewBin} />
         </Route>
       </Switch>
   </>

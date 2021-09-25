@@ -7,8 +7,8 @@ const Home = ({ handleGoToBin, binId, handleBinIdChange, handleCreateNewBin }) =
   <main>
     <div>
       <form onSubmit={handleGoToBin}>
-        <label>Enter the Bin Id<input type="text" placeholder="4f6q-u" value={binId} onChange={handleBinIdChange}/></label>
-        <button type="submit">Go!</button>testing only: u6anlg
+        <label>Enter the Bin Id<input type="text" placeholder="u6anlg" value={binId} onChange={handleBinIdChange}/></label>
+        <button type="submit">Go!</button>
       </form>
     </div>
     <p>or</p>
@@ -16,5 +16,5 @@ const Home = ({ handleGoToBin, binId, handleBinIdChange, handleCreateNewBin }) =
   </main>
   )
 }
-
+// testing only: u6anlg
 export default Home;
