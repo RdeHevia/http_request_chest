@@ -6,8 +6,9 @@ const fetchBin = async (binId) => {
 }
 
 const fetchRequests = async (binId) => {
-  const response = await fetch(`${baseUrl}/${binId}`);
-  return (await response.json()).requests;
+  console.log(binId);
+  const response = await fetch(`${baseUrl}/${binId}/requests`);
+  return response.json();
 }
 
 const getIfBinExists = async (binId) => {

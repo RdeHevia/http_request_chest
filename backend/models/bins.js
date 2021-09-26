@@ -13,6 +13,7 @@ const binSchema = new mongoose.Schema({
     type: String,
     default: generateId,
   },
+  endPoint: String,
 
   requests: [requestSchema]
 }, { timestamps: true });

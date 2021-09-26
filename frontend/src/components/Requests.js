@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react-dom';
 
 const Request = ({ request }) => {
   const dateConfig = {weekday: "long", year:"numeric", month:"long", day:"numeric", hour: "numeric", minute: "numeric"};
@@ -30,4 +30,12 @@ const Request = ({ request }) => {
   )
 }
 
-export default Request;
+const Requests = ( { requests }) => {
+  return (
+    <ul>
+      {requests.map(request => (<Request key={request._id} request={request} />))}
+    </ul>
+  )
+}
+
+export default Requests;

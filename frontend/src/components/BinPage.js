@@ -1,29 +1,38 @@
 import React, { useEffect, useState } from 'react';
-import { fetchBin } from '../services/fetchBin';
+import { fetchBin, fetchRequests } from '../services/fetchBin';
 import BackHomeButton from './BackHomeButton';
-import Request from './Request';
+import Requests from './Requests';
 import TimeAgo from 'javascript-time-ago';
 import en from 'javascript-time-ago/locale/en'
+import Refresh from './Refresh';
 
 const BinPage = ({ binId, handleGoToHome }) => {
   const [requests, setRequests] = useState([]);
   const [creationTime, setCreationTime] = useState("");
   const [lastUpdateTime, setLastUpdateTime] = useState("");
+  const [endPoint, setEndPoint] = useState("");
   useEffect(() => {
     fetchBin(binId).then(bin => {
       const dateConfig = {weekday: "long", year:"numeric", month:"long", day:"numeric", hour: "numeric", minute: "numeric"};
       setCreationTime(new Date(bin.createdAt).toLocaleString("en-US", dateConfig));
       setLastUpdateTime(new Date(bin.updatedAt).toLocaleString("en-US", dateConfig));
-      setRequests(bin.requests);
-      console.log(requests);
+      setRequests(bin.requests.reverse());
+      setEndPoint(`${window.location.origin}${bin.endPoint}`);
     });
   }, []);
+
+  const handleRefresh = async event => {
+    event.preventDefault();
+    setRequests((await fetchRequests(binId)).reverse());
+  }
+
   return (
     <main>
       <BackHomeButton handleGoToHome={handleGoToHome} />
+      <Refresh handleRefresh={handleRefresh}/>
       <section>
         <p>Your enpoint:</p> 
-        <input type="url" name="" id="" readOnly defaultValue={`${window.location.hostname}/${binId}`}/>
+        <input type="url" name="" id="" readOnly defaultValue={endPoint}/>
       </section>
       <section>
         <ul>
@@ -35,9 +44,10 @@ const BinPage = ({ binId, handleGoToHome }) => {
       <section>
 
       </section>
-      <ul>
+      {/* <ul>
         {requests.map(request => (<Request key={request._id} request={request} />))}
-      </ul>
+      </ul> */}
+      <Requests requests={requests} />
     </main>
   )
 }
