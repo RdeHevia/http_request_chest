@@ -1,0 +1,10 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    /* background-color: #1b1e24 */
+    @apply bg-gradient-to-b from-gray-900 to-gray-500 bg-fixed;
+  }
+}

@@ -25,7 +25,6 @@ const BinPage = ({ binId, handleGoToHome }) => {
     event.preventDefault();
     setRequests((await fetchRequests(binId)).reverse());
   }
-
   return (
     <main>
       <BackHomeButton handleGoToHome={handleGoToHome} />

@@ -55,8 +55,8 @@ const App = () => {
   }
 
   return (
-  <>
-    <header><h1>Request Bin</h1></header>
+  <body className="text-white font-sans">
+    <header className="flex content-center justify-center p-20"><h1 className="text-9xl">Request Bin</h1></header>
       <Switch>
         <Route path={`/bins/${binId}`}>
           <BinPage binId={binId} handleGoToHome={handleGoToHome}/>
@@ -65,7 +65,7 @@ const App = () => {
           <Home binId={binIdFormInput} handleBinIdChange={handleBinIdChange} handleGoToBin={handleGoToBin} handleCreateNewBin={handleCreateNewBin} />
         </Route>
       </Switch>
-  </>
+  </body>
   )
 }
 
