@@ -5,6 +5,7 @@ import Requests from './Requests';
 import TimeAgo from 'javascript-time-ago';
 import en from 'javascript-time-ago/locale/en'
 import Refresh from './Refresh';
+import RequestNavBar from './RequestNavBar';
 
 const BinPage = ({ binId, handleGoToHome }) => {
   const [requests, setRequests] = useState([]);
@@ -27,16 +28,16 @@ const BinPage = ({ binId, handleGoToHome }) => {
   }
   return (
     <div className="text-xl m-5">
-      <section className="border-2 text-3xl">
-        <p>Your endpoint:</p> 
+      <section className="text-4xl flex flex-col items-center">
+        <p className="mb-5">Your endpoint:</p> 
         <input type="url" name="" id="" readOnly defaultValue={endPoint} className=" w-full mb-5 p-5 flex rounded-md bg-gray-800 border-2 border-gray-900 text-yellow-600 placeholder-yellow-600 placeholder-opacity-40 text-center"/>
       </section>
       <div  className="flex">
-        <nav className="border-2 flex-none w-96">
+        <nav className="flex-none w-96 border-2 p-5 border-gray-900 rounded-tl-md rounded-bl-md">
           <BackHomeButton handleGoToHome={handleGoToHome} />
           <Refresh handleRefresh={handleRefresh}/>
-          <section className="border-2">
-            <h2 className="text-3xl font-bold mb-5">Bin {binId}</h2>
+          <section className="border-b-2 border-gray-900">
+            <h2 className="text-3xl font-bold mb-5 mt-5 pb-2 border-b-2">Bin {binId}</h2>
             <dl className="mb-5">
               <dt className="text-white font-bold">Created on:</dt>
               <dd className="italic text-lg mb-5">{creationTime}</dd>
@@ -44,8 +45,9 @@ const BinPage = ({ binId, handleGoToHome }) => {
               <dd className="italic text-lg">{lastUpdateTime}</dd>
             </dl>
           </section>
+          <RequestNavBar requests={requests} />
         </nav>
-        <main className="border-2 flex-auto">
+        <main className="flex-auto border-t-2 border-b-2 border-r-2 p-5 border-gray-900 rounded-tr-md rounded-br-md">
             <Requests requests={requests} />
         </main>
       </div>
