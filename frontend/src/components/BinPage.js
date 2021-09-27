@@ -19,12 +19,10 @@ const BinPage = ({ binId, handleGoToHome }) => {
       const dateConfig = {weekday: "long", year:"numeric", month:"long", day:"numeric", hour: "numeric", minute: "numeric"};
       setCreationTime(new Date(bin.createdAt).toLocaleString("en-US", dateConfig));
       setLastUpdateTime(new Date(bin.updatedAt).toLocaleString("en-US", dateConfig));
+      setEndPoint(`${window.location.origin}${bin.endPoint}`);
       const sortedRequests = bin.requests.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
       setRequests(sortedRequests);
       setCurrentRequestId(sortedRequests[0]._id);
-      setEndPoint(`${window.location.origin}${bin.endPoint}`);
-      const test = requests.find(request => request._id === currentRequestId);
-      console.log("hey",test)
     });
   }, []);
 
