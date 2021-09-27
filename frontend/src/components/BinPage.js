@@ -26,28 +26,30 @@ const BinPage = ({ binId, handleGoToHome }) => {
     setRequests((await fetchRequests(binId)).reverse());
   }
   return (
-    <main>
-      <BackHomeButton handleGoToHome={handleGoToHome} />
-      <Refresh handleRefresh={handleRefresh}/>
-      <section>
-        <p>Your enpoint:</p> 
-        <input type="url" name="" id="" readOnly defaultValue={endPoint}/>
+    <div className="text-xl m-5">
+      <section className="border-2 text-3xl">
+        <p>Your endpoint:</p> 
+        <input type="url" name="" id="" readOnly defaultValue={endPoint} className=" w-full mb-5 p-5 flex rounded-md bg-gray-800 border-2 border-gray-900 text-yellow-600 placeholder-yellow-600 placeholder-opacity-40 text-center"/>
       </section>
-      <section>
-        <ul>
-          <li>Bin {binId}</li>
-          <li>Bin created on: {creationTime}</li>
-          <li>Last request received on: {lastUpdateTime}</li>
-        </ul>
-      </section>
-      <section>
-
-      </section>
-      {/* <ul>
-        {requests.map(request => (<Request key={request._id} request={request} />))}
-      </ul> */}
-      <Requests requests={requests} />
-    </main>
+      <div  className="flex">
+        <nav className="border-2 flex-none w-96">
+          <BackHomeButton handleGoToHome={handleGoToHome} />
+          <Refresh handleRefresh={handleRefresh}/>
+          <section className="border-2">
+            <h2 className="text-3xl font-bold mb-5">Bin {binId}</h2>
+            <dl className="mb-5">
+              <dt className="text-white font-bold">Created on:</dt>
+              <dd className="italic text-lg mb-5">{creationTime}</dd>
+              <dt className="text-white font-bold">Last request received on:</dt>
+              <dd className="italic text-lg">{lastUpdateTime}</dd>
+            </dl>
+          </section>
+        </nav>
+        <main className="border-2 flex-auto">
+            <Requests requests={requests} />
+        </main>
+      </div>
+    </div>
   )
 }
 
