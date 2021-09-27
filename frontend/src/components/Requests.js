@@ -1,8 +1,11 @@
 import React from 'react-dom';
 const Request = ({ request }) => {
   const dateConfig = {weekday: "long", year:"numeric", month:"long", day:"numeric", hour: "numeric", minute: "numeric"};
+  if (!request) {
+    return <h1 className="text-5xl font-bold mb-5">Requests will appear here</h1>
+  }
   return (
-    <li>
+    <>
       <section className="m-5">
         <h1 className="text-5xl font-bold mb-5">{request.method} {request.path}</h1>
         <dl>
@@ -26,9 +29,9 @@ const Request = ({ request }) => {
       </section>
       <section className="m-5">
         <h2>Body</h2>
-        <textarea cols="100" value={JSON.stringify(request.body, null, 3) || "{\n\n}"} readOnly className="p-5 w-full h-screen rounded-md bg-gray-800 border-2 border-gray-900 text-yellow-600"></textarea>
+        <textarea cols="100" value={JSON.stringify(request.body, null, 3) || "{\n\n}"} readOnly className="p-5 w-full h-screen rounded-md bg-gray-700 border-2 border-gray-900 text-yellow-600"></textarea>
       </section>
-    </li>
+    </>
   )
 }
 
@@ -40,4 +43,4 @@ const Requests = ( { requests }) => {
   )
 }
 
-export default Requests;
+export default Request;
