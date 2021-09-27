@@ -3,8 +3,12 @@
 @tailwind utilities;
 
 @layer base {
-  body {
+  html {
     /* background-color: #1b1e24 */
     @apply bg-gradient-to-b from-gray-900 to-gray-500 bg-fixed;
   }
+}
+
+html {
+  background-size: 2000px 2000x, cover;
 }

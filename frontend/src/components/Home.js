@@ -16,4 +16,5 @@ const Home = ({ handleGoToBin, binId, handleBinIdChange, handleCreateNewBin }) =
   )
 }
 // testing only: u6anlg
+// rename to cHesTTP
 export default Home;
