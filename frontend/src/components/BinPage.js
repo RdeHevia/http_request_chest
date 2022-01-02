@@ -68,7 +68,7 @@ const BinPage = ({ binId, handleGoToHome }) => {
           <Refresh handleRefresh={handleRefresh} />
           <section>
             <h2 className="text-3xl font-bold mb-5 mt-5 pb-2 border-b-2 border-gray-900">
-              Bin {binId}
+              Chest {binId}
             </h2>
             <dl className="mb-5">
               <dt className="text-white font-bold">Created on:</dt>
